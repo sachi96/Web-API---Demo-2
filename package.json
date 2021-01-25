@@ -1,0 +1,19 @@
+{
+  "name": "demo-2",
+  "version": "1.0.0",
+  "description": "This is my second Web API demo project (Avengers)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Node-Express",
+    "Express-js",
+    "Avengers"
+  ],
+  "author": "Udara Sachinthana",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
