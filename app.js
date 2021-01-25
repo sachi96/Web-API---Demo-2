@@ -39,6 +39,17 @@ app.get("/api/avengers/:id", (req, res) => {
     res.status(200).send(avenger);
 });
 
+app.put("/api/:id", (req, res) =>{
+    let requestedID = req.params.id;
+    let avenger = avengerArray.find(avenger => avenger.id == requestedID);
+    if(!avenger)
+    {
+        return res.status(404).send("The Avenger you looking for is does not exist");
+    }
+    avenger.name = req.body.name;
+    return res.send("Avenger updated successfully");
+})
+
 // app.listen(PORT, function(){
 //     console.log("Listning on PORT " + PORT);
 // });
