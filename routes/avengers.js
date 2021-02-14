@@ -1,14 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const Avenger = require('../models/avenger')
 
-let avengerArray = [
-    {id: 1, name: "IronMan"},
-    {id: 2, name: "Caption America"},
-    {id: 3, name: "Thor"}
-];
-
-router.get("/", (req, res) => {
-    res.send(avengerArray);
+router.get("/", async (req, res) => {
+    try{
+        let avengers = await Avenger.find();
+        res.send(avengers);
+    }
+    catch(err){
+        return res.status(500).send("Error: ", err.message);
+    }
+    
 });
 
 router.get("/:id", (req, res) => {
@@ -33,17 +35,27 @@ router.put("/:id", (req, res) =>{
     return res.send(avenger);
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
     if(!req.body.name)
     {
         return res.status(400).send("Bad Request");
     }
-    let newAvenger = {
-        id: avengerArray.length + 1,
-        name: req.body.name
+    let newAvenger = new Avenger({
+        name: req.body.name,
+        birthname: req.body.birthname,
+        movies: req.body.movies,
+        likeCount: req.body.likeCount,
+        imageUrl: req.body.imageUrl,
+        deceased: req.body.deceased
+    });
+    try{
+        newAvenger = await newAvenger.save();
+        return res.send(newAvenger);
     }
-    avengerArray.push(newAvenger);
-    res.send(newAvenger);
+    catch(err){
+        return res.status(500).send(err.message);
+    }
+    
 });
 
 router.delete("/:id", (req, res) => {
