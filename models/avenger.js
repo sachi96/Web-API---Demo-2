@@ -10,7 +10,7 @@ const avengerSchema = new mongoose.Schema({
     birthname: String,
     movies: {
         type: [String],
-        enum: ["End Gane","Infinity War","Iron Man 1","Iron Man 2","Iron Man 3"],
+        enum: ["End Game","Infinity War","Iron Man 1","Iron Man 2","Iron Man 3"],
         required: true
     },
     likeCount: Number,

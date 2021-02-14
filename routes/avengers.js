@@ -13,12 +13,13 @@ router.get("/", async (req, res) => {
     
 });
 
-router.get("/:id", (req, res) => {
-    let requestedID = req.params.id;
-    let avenger = avengerArray.find(avenger => avenger.id == requestedID);
-    if(!avenger)
-    {
-        return res.status(404).send("The Avenger you looking for is does not exist");
+router.get("/:id", async (req, res) => {
+    try{
+        let requestedID = req.params.id;
+        let avenger = await avengerArray.find(avenger => avenger.id == requestedID);
+    }
+    catch(err){
+        return res.status(404).send("The Avenger you looking for is does not exist(id)");
     }
     console.log(avenger);
     res.status(200).send(avenger);
@@ -58,11 +59,12 @@ router.post("/", async (req, res) => {
     
 });
 
-router.delete("/:id", (req, res) => {
-    let requestedID = req.params.id;
-    let avenger = avengerArray.find(avenger => avenger.id == requestedID);
-    if(!avenger)
-    {
+router.delete("/:id", async (req, res) => {
+    try{
+        let requestedID = req.params.id;
+        let avenger = await avengerArray.find(avenger => avenger.id == requestedID);
+    }
+    catch(err){
         return res.status(404).send("The Avenger you looking for is does not exist");
     }
     let indexOfAvenger = avengerArray.indexOf(avenger);
